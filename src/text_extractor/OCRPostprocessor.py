@@ -9,6 +9,15 @@ from textblob import Word
 
 
 def cluster(bboxes, words, image, visualize=False):
+    """
+    Performs bounding box clustering, to find the groups corresponding to speech bubbles and correct the output ordering.
+    :param bboxes: A list of bounding boxes to cluster.
+    :param words: A list of words corresponding to the bounding boxes.
+    :param image: Image to perform clustering on.
+    :param visualize: True if you want visualization of the clusters displayed.
+    :return: A string obtained by concatenating the words in the order determined by the clustering.
+    """
+
     if not words:
         return ""
     if len(words) < 2:
@@ -45,6 +54,14 @@ def cluster(bboxes, words, image, visualize=False):
 
 
 def visualize_clusters(clusters, bboxes, words, image):
+    """
+    Visualizes clusters.
+    :param clusters: A list of cluster numbers for the bboxes.
+    :param bboxes: A list of Bboxes.
+    :param words: A list of words corresponding to the bboxes.
+    :param image: The original image.
+    :return: None.
+    """
     if len(np.unique(clusters)) >= 1:
         standard_bboxes = image.copy()
         colors = [list(np.random.random(size=3) * 256) for _ in range(10)]
@@ -60,11 +77,21 @@ def visualize_clusters(clusters, bboxes, words, image):
 
 
 def bbox_key(bbox):
+    """
+    Key used for bbox sorting.
+    :param bbox: Bbox to calculate the key for.
+    :return: the value of the key.
+    """
     x, y = bbox
     return 5 * y + x
 
 
 def aggl_cluster(bboxes):
+    """
+    Performs agglomerative clustering of the bounding boxes.
+    :param bboxes: A list of bounding boxes to cluster.
+    :return: A list of cluster labels.
+    """
     heights = [(y2 - y1) for (_, y1, _, y2) in bboxes]
     tolerance = 0.75 * np.average(heights)
     n = len(bboxes)
@@ -79,10 +106,21 @@ def aggl_cluster(bboxes):
 
 
 def dist_affinity(x):
+    """
+    Dist affinity metric used for clustering.
+    :param x: input vector.
+    :return: Pairwise distance.
+    """
     return pairwise_distances(x, metric=distance)
 
 
 def distance(bbox1, bbox2):
+    """
+    Distance metric for bounding box distance.
+    :param bbox1: One bounding boxes.
+    :param bbox2: The other bounding box.
+    :return: Distance between the bounding boxes.
+    """
     x11, y11, x12, y12 = bbox1
     x21, y21, x22, y22 = bbox2
 
@@ -98,10 +136,24 @@ def distance(bbox1, bbox2):
 
 
 def overlaps(a1, a2, b1, b2):
+    """
+    Determines if two ranges overlap.
+    :param a1: start of the first range.
+    :param a2: end of the first range.
+    :param b1: start of the second range.
+    :param b2: end of the second range.
+    :return: True if the ranges overlap, else False.
+    """
     return a1 < b1 < a2 or b1 < a1 < b2
 
 
 def clear_text(text):
+    """
+    Clears a text string - removes trailing and consecutive spaces, characters other than letters and interpunction, and
+    converts the string to lowercase.
+    :param text: String to process.
+    :return: Cleared strin.
+    """
     text = text.lower()
 
     text = re.sub(r'[^a-zA-Z.,?!\s]+', '', text)
@@ -112,6 +164,11 @@ def clear_text(text):
 
 
 def autocorrect_text(text):
+    """
+    Uses autocorrect to correct the text.
+    :param text: String to correct.
+    :return: Corrected string.
+    """
     words = text.split(' ')
     corrected = []
     for word in words:

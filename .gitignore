@@ -115,5 +115,4 @@ dmypy.json
 
 # additional stuff
 .idea
-*.png
 *.json
