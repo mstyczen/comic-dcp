@@ -53,8 +53,8 @@ The text extractor implementation is provided in the `text_extractor` package, a
 * `OCRPostprocessor`: performs post processing of the OCR results:
     * `cluster` method performs output correction using bounding box clustering, see image below
     * `autocorrect` method uses dictionary-based correction to correct errors in the OCR output
-* `TesseractOCR`: uses the [Tesseract] OCR engine to extract text from an image
-* `VisionOCR`: uses Google's [Cloud Vision API] OCR to extract text from an image
+* `TesseractOCR`: uses the [Tesseract](https://pypi.org/project/pytesseract/) OCR engine to extract text from an image
+* `VisionOCR`: uses Google's [Cloud Vision API](https://cloud.google.com/vision) OCR to extract text from an image
 * `TextExtractor` contains the `extract_text` method, that given the list of imgs paths, performs the OCR text extraction using the specified engine, preprocessing and post-processing steps.
 
  ![clustering](figures/clustering.png)
