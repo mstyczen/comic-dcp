@@ -5,7 +5,7 @@
 The thesis research was conducted for the CSE3000 Research Project course in summer semester of 2021, completing my BSc Computer Science and Engineering at TU Delft, Netherlands.
 
 The motivation and background for the project, as well as the detailed explanation of the methodology behind the proposed solution and
-extensive evaluation of the pipeline is available in the research paper delivered for the project, see [TU Delft Repository](TODO).
+extensive evaluation of the pipeline is available in the research paper delivered for the project, see [TU Delft Repository](https://repository.tudelft.nl/islandora/object/uuid%3A4cd4da94-d762-4985-ac30-00ee81e33e63).
 
 I would like to thank my supervisors, prof. Lydia Chen and dr. Zilong Zhao, for the help I received throughout the whole process of working on the thesis.
 
